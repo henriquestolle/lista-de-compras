@@ -7,7 +7,6 @@
 
 .main {
     margin: 10%;
-    height: 95vh;
     height: auto;
 }
 
@@ -43,6 +42,12 @@
                   -20px -20px 60px #ffffff;
 }
 
+.div-button {
+    display: block;
+    text-align: center;
+    margin: 10% 0% 0% 0%;
+}
+
 /* Input */
 .input {
     width: 50vw;
@@ -54,7 +59,7 @@
     font-weight: 600;
     background-color: #e2e2e2;
     outline-offset: 3px;
-    padding: 16px 1rem;
+    padding: 14px 1rem;
     transition: 0.25s;
 }
 
@@ -67,7 +72,7 @@
     font-size: 18px;
     font-weight: 600;
     outline-offset: 3px;
-    padding: 14px 1rem;
+    padding: 13px 1rem;
     transition: 1s;
 }
 
@@ -90,17 +95,18 @@
 
 /* Texto da tarefa */
 .tarefas {
-    display: flex;
-    justify-content: center;
+    display: block;
     align-items: center;
     margin: 5%;
     width: 75vw;
+    overflow-wrap: break-word;
     list-style-type: none;
     border-radius: 10px;
     color: black;
     text-align: center;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 700;
+    line-break: auto;
     padding: 5%;
     box-shadow: 1px 1px 10px #bebebe,
                   -20px -20px 100px #ffffff;
@@ -203,7 +209,8 @@
 /* Botão Excluir */
 .botao-excluir {
     margin-left: 10%;
-    padding: 3%;
+    padding: 4%;
+    width: 30vw;
     font-size: 15px;
     font-weight: 900;
     color: white;
@@ -220,8 +227,8 @@
 
 /* Botão Editar */
 .botao-editar {
-    margin: 0% 0% 0% 10%;
-    padding: 3%;
+    padding: 4%;
+    width: 30vw;
     font-size: 15px;
     font-weight: 900;
     color: white;

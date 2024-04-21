@@ -20,6 +20,11 @@ function addItem() {
     li.classList.add('tarefas')
     li.textContent = itemText;
 
+    // Create div to button
+    const divButton = document.createElement('div');
+    divButton.classList.add('div-button');
+    
+
     // Create edit button
     const editButton = botaoEditar(li);
     editButton.onclick = () => editItem(li.textContent);
@@ -29,8 +34,9 @@ function addItem() {
     deleteButton.onclick = () => deleteItem(li);
 
     // Add buttons to list item
-    li.appendChild(editButton);
-    li.appendChild(deleteButton);
+    li.appendChild(divButton);
+    divButton.appendChild(editButton);
+    divButton.appendChild(deleteButton);
 
     // Add list item to list
     itemList.appendChild(li);
@@ -72,8 +78,8 @@ function editItem(item) {
     newText = newText.trim();
 
     // Validate input
-    if (newText.length > 50) {
-        alert('O texto não pode ter mais de 50 caracteres.');
+    if (newText.length > 30) {
+        alert('O texto não pode ter mais de 30 caracteres.');
         return; // Exit if input is too long
     }
 
