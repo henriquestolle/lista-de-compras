@@ -1,3 +1,4 @@
+// Função de adicionar item (Principal)
 function addItem() {
     const input = document.getElementById('newItem');
     const itemText = input.value.trim();
@@ -25,9 +26,9 @@ function addItem() {
     divButton.classList.add('div-button');
     
 
-    // Create edit button
-    const editButton = botaoEditar(li);
-    editButton.onclick = () => editItem(li.textContent);
+    // Create conclusion button
+    const conclusionButton = botaoConcluido(li);
+    conclusionButton.onclick = () => conclusionItem(li);
 
     // Create delete button
     const deleteButton = botaoExcluir(li);
@@ -35,7 +36,7 @@ function addItem() {
 
     // Add buttons to list item
     li.appendChild(divButton);
-    divButton.appendChild(editButton);
+    divButton.appendChild(conclusionButton);
     divButton.appendChild(deleteButton);
 
     // Add list item to list
@@ -45,6 +46,7 @@ function addItem() {
     input.value = '';
 }
 
+// Função para criar botão de excluir
 function botaoExcluir(item) {
     const botao = document.createElement('button');
     botao.classList.add('botao-excluir');
@@ -53,56 +55,37 @@ function botaoExcluir(item) {
     return botao;
 }
 
-function botaoEditar(item) {
+// Função para criar botão de concluido
+function botaoConcluido(item) {
     const botao = document.createElement('button');
-    botao.classList.add('botao-editar');
-    botao.textContent = 'Editar';
-    botao.onclick = () => editItem(item); // Pass item to edit
+    botao.classList.add('botao-concluido');
+    botao.textContent = 'Concluido';
+    botao.onclick = () => conclusionItem(item); // Pass item to conclusion
     return botao;
 }
 
+// Função para excluir item
 function deleteItem(item) {
     if (confirm('Tem certeza que deseja excluir este item?')) {
         item.parentNode.removeChild(item);
     }
 }
 
-function editItem(item) {
-    let newText = prompt('Editar Item', item.textContent);
-    
-    // Handle cancel or empty input
-    if (newText === null || newText.trim() === '') {
-        return; // Do nothing if canceled or input is empty
+// Função para quando o item for concluido
+function conclusionItem(item) {
+    if (item.style.opacity !== '0.5') {
+        if (confirm('Tem certeza que concluiu?')) {
+            return (
+                item.style.opacity = '0.5',
+                item.style.background = 'lightgreen'
+            );
+        }
     }
+    return alert('Este item já foi concluido');
     
-    newText = newText.trim();
-
-    // Validate input
-    if (newText.length > 30) {
-        alert('O texto não pode ter mais de 30 caracteres.');
-        return; // Exit if input is too long
-    }
-
-    // Update item text
-    const textNode = document.createTextNode(newText);
-    const currentTextNode = item.firstChild; // Get the existing text node
-    item.replaceChild(textNode, currentTextNode);
-
-    // Restore edit and delete buttons
-    const editButton = document.createElement('button');
-    editButton.classList.add('botao-editar');
-    editButton.textContent = 'Editar';
-    editButton.onclick = () => editItem(item);
-
-    const deleteButton = document.createElement('button');
-    deleteButton.classList.add('botao-excluir');
-    deleteButton.textContent = 'Excluir';
-    deleteButton.onclick = () => deleteItem(item);
-
-    item.appendChild(editButton);
-    item.appendChild(deleteButton);
 }
 
+// Função add item ao clicar no enter
 function handleKeyDown(event) {
     if (event.key === 'Enter') {
         addItem();
