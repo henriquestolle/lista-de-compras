@@ -1,7 +1,17 @@
 function addItem() {
     const input = document.getElementById('newItem');
     const itemText = input.value.trim();
-    if (itemText === '') return;
+    if (itemText === '') {
+        return (
+            input.classList.remove('input'),
+            input.classList.add('input-incorreto')
+        );
+    }
+    // Retornando o estilo do input normal
+    if (input.className === 'input-incorreto') {
+        input.classList.remove('input-incorreto');
+        input.classList.add('input');
+    }
 
     const itemList = document.getElementById('itemList');
 
