@@ -106,6 +106,7 @@ function darkMode() {
     const body = document.body;
     const themeSwitch = document.querySelector('.theme-switch__checkbox');
     const tarefas = document.querySelectorAll('.tarefas');
+    const tarefasDark = document.querySelectorAll('.tarefas-dark-mode');
 
     // Verifica se o switch está marcado (modo escuro ativado)
     if (themeSwitch.checked) {
@@ -114,6 +115,7 @@ function darkMode() {
 
         // Para cada elemento com a classe 'tarefas', aplica classe de modo escuro
         tarefas.forEach(tarefa => {
+            tarefa.classList.remove('tarefas');
             tarefa.classList.add('tarefas-dark-mode');
         });
     } else {
@@ -122,6 +124,10 @@ function darkMode() {
         body.classList.remove('dark-mode');
         // Para cada elemento com a classe 'tarefas', remove classe de modo escuro
         tarefas.forEach(tarefa => {
+            tarefa.classList.remove('tarefas-dark-mode');
+            tarefa.classList.add('tarefas');
+        });
+        tarefasDark.forEach(tarefa => {
             tarefa.classList.remove('tarefas-dark-mode');
             tarefa.classList.add('tarefas');
         });
