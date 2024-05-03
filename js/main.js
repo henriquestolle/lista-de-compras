@@ -1,5 +1,6 @@
 // Função de adicionar item (Principal)
 function addItem() {
+    const body = document.body;
     const input = document.getElementById('newItem');
     const itemText = input.value.trim();
     if (itemText === '') {
@@ -13,14 +14,18 @@ function addItem() {
         input.classList.remove('input-incorreto');
         input.classList.add('input');
     }
-
     const itemList = document.getElementById('itemList');
 
     // Create list item
     const li = document.createElement('li');
-    li.classList.add('tarefas')
-    li.textContent = itemText;
-
+    // Se for adicionado no modo escuro 
+    if (body.className === 'dark-mode') {
+        li.classList.add('tarefas-dark-mode');
+        li.textContent = itemText;
+    } else {
+        li.classList.add('tarefas');
+        li.textContent = itemText;
+    }
     // Create div to button
     const divButton = document.createElement('div');
     divButton.classList.add('div-button');
@@ -74,15 +79,19 @@ function deleteItem(item) {
 // Função para quando o item for concluido
 function conclusionItem(item) {
     if (item.style.opacity !== '0.5') {
-        if (confirm('Tem certeza que concluiu?')) {
             return (
                 item.style.opacity = '0.5',
                 item.style.background = 'lightgreen'
             );
+    }
+    if (item.style.opacity === '0.5') {
+        if (confirm('Deseja Desconcluir este item?')) {
+            return (  
+                item.style.opacity = '1',
+                item.style.background = 'white'
+            );   
         }
     }
-    return alert('Este item já foi concluido');
-    
 }
 
 // Função add item ao clicar no enter
@@ -92,3 +101,29 @@ function handleKeyDown(event) {
     }
 }
 
+// Função para alternar entre os modos escuro e claro
+function darkMode() {
+    const body = document.body;
+    const themeSwitch = document.querySelector('.theme-switch__checkbox');
+    const tarefas = document.querySelectorAll('.tarefas');
+
+    // Verifica se o switch está marcado (modo escuro ativado)
+    if (themeSwitch.checked) {
+        // Aplica classe ao body para ativar modo escuro
+        body.classList.add('dark-mode');
+
+        // Para cada elemento com a classe 'tarefas', aplica classe de modo escuro
+        tarefas.forEach(tarefa => {
+            tarefa.classList.add('tarefas-dark-mode');
+        });
+    } else {
+        // Remove classe do body para desativar modo escuro
+        body.style.transition = '0.250';
+        body.classList.remove('dark-mode');
+        // Para cada elemento com a classe 'tarefas', remove classe de modo escuro
+        tarefas.forEach(tarefa => {
+            tarefa.classList.remove('tarefas-dark-mode');
+            tarefa.classList.add('tarefas');
+        });
+    }
+}
